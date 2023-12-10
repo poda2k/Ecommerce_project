@@ -1,0 +1,24 @@
+{
+  "name": "ecommerce_backend",
+  "version": "1.0.0",
+  "description": "a nice project for getting money and other things ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/poda2k/Ecommerce_project.git"
+  },
+  "author": "omar fouad and abdallah yasser",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/poda2k/Ecommerce_project/issues"
+  },
+  "homepage": "https://github.com/poda2k/Ecommerce_project#readme",
+  "dependencies": {
+    "@types/express": "^4.17.21",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2"
+  }
+}
