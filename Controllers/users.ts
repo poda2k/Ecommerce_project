@@ -30,3 +30,21 @@ export const createUser = (req: Request, res: Response) => {
     res.status(500).json({ error: error });
   }
 };
+
+export const updateUser = async (req: Request, res: Response) => {
+  const id = parseInt(req.params.id);
+  console.log("id", id);
+
+  const { user_name, email, password, address, isadmin, img, city, country } =
+    req.body;
+  db.query(
+    "UPDATE  users SET user_name=$1, email=$2, password = $3 ,address =$4,isAdmin=$5,img=$6,city=$7,country=$8 WHERE id = $9 ",
+    [user_name, email, password, address, isadmin, img, city, country, id]
+  )
+    .then((user: any) =>
+      res.status(200).json({ message: "the user is updated", user: user.rows })
+    )
+    .catch((err: any) => {
+      res.status(500).json({ message: "error", error: err });
+    });
+};
