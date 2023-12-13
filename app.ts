@@ -36,6 +36,7 @@ Products.belongsTo(Categories, { foreignKey: 'cat_id' });
 
 //Routes//
 
+// app.use("/api", user);
 app.use('/products', ProductsRoutes) ;
 
 //Routes//
@@ -51,3 +52,9 @@ connection.sync()
     console.log("===============")
     console.log("error in database connection : "+err )
 })
+
+
+
+
+
+
