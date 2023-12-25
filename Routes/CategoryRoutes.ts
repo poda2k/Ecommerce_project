@@ -5,7 +5,7 @@ const router = Router();
 
 //GET//
 
-
+router.get('/getAllCategories' , CategoryHandler.GetCategories);
 
 //GET//
 

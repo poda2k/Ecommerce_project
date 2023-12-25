@@ -17,6 +17,27 @@ class CategoryHandler{
           throw e;
         }
       }
+
+      static async GetCategories(req: Request, res: Response): Promise<void>{
+
+        try{
+            const allCategories = await Categories.findAll();
+
+            if(allCategories.length>0){
+                res.json({ message: "categories" , categories: allCategories });
+            }
+
+            res.json({ message: "no categories found"}) ;
+
+        }catch(e){
+
+            console.log("error getting categories");
+            throw e;
+        }
+        
+
+
+      }
     
 }
 
