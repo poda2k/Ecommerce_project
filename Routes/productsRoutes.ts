@@ -17,7 +17,6 @@ router.get('/singleProduct/:id', productHandler.getSingleProduct) ;
 //POST//
 
 router.post('/createProducts', productHandler.createProduct) ;
-router.post('/createCategory' , productHandler.createCategory) ;
 
 //POST//
 
