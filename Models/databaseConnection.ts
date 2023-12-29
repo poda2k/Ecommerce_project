@@ -1,14 +1,16 @@
 import { Sequelize } from "sequelize";
-import dotenv from "dotenv";
-// import {db_connection} from "../secrets" ;
-dotenv.config();
+// import dotenv from "dotenv";
+import {db_connection} from "../secrets" ;
+// dotenv.config();
 const connection = new Sequelize({
-  username: process.env.USER_NAME,
-  database: process.env.DB_NAME,
-  password: process.env.PASSWORD,
-  host: process.env.HOST,
+  username: db_connection.USER_NAME,
+  database: db_connection.DB_NAME,
+  password: db_connection.PASSWORD,
+  host: db_connection.HOST,
   port: 5432,
   dialect: "postgres",
 });
+
+
 
 export default connection;

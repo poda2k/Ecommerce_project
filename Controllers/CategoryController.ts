@@ -1,5 +1,5 @@
-import { Request , Response } from "express" ;
 import Categories from '../Models/Categories' ;
+import { Request , Response } from "express" ;
 
 
 class CategoryHandler{

@@ -1,15 +1,27 @@
 import express from "express";
 // import { db_connection } from './secrets';
-import * as dotenv from "dotenv";
+// import * as dotenv from "dotenv";
 import connection from "./Models/databaseConnection";
+
+//    MODELS IMPORTS   //
+
 import Products from "./Models/Products";
 import Categories from "./Models/Categories";
+import Cart from "./Models/Cart";
+import Prod_Cart from "./Models/Prod_Cart";
+
+//    MODELS IMPORTS  //
+//    ROUTES IMPORTS  //
+
 import ProductsRoutes from "./Routes/productsRoutes";
 import userAuth from "./Routes/usersauth";
+
+//    ROUTES IMPORTS  //
+
 // import cors from "cors";
 import bodyParser from "body-parser";
 
-dotenv.config();
+// dotenv.config();
 const app = express();
 const port = process.env.APP_PORT;
 
@@ -25,6 +37,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 Categories.hasMany(Products, { foreignKey: "cat_id" });
 Products.belongsTo(Categories, { foreignKey: "cat_id" });
+Cart.belongsToMany(Products, { through: Prod_Cart });
+Products.belongsToMany(Cart, { through: Prod_Cart });
 
 // RELATIONS //
 
@@ -37,7 +51,7 @@ app.use("/auth", userAuth);
 //Routes//
 
 connection
-  .sync()
+  .sync({force:true})
   .then((result) => {
     console.log("GOOD TO GO");
     app.listen(port);
