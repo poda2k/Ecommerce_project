@@ -1,4 +1,5 @@
 import Categories from '../Models/Categories' ;
+import Products from '../Models/Products' ;
 import { Request , Response } from "express" ;
 
 
@@ -35,10 +36,26 @@ class CategoryHandler{
             throw e;
         }
         
-
-
       }
-    
+
+      static async getSingleCategoryWithProduct(req:Request , res: Response): Promise<void>{
+
+        const catId = req.params.catId;
+        try{
+          const productWithCategory = await Products.findAll({
+            where:{
+              cat_id : catId
+            }
+          });
+          if(productWithCategory.length>0){
+            res.json({ message:"products with category found" , products: productWithCategory }) ;
+          }
+          res.json({ message: "cant find product with category"}) ;
+        }catch(e){
+          console.log("error in get product with category") ;
+          throw e ;
+        }
+      }
 }
 
 export default CategoryHandler ;

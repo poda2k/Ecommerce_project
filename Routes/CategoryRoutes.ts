@@ -6,6 +6,7 @@ const router = Router();
 //GET//
 
 router.get('/getAllCategories' , CategoryHandler.GetCategories);
+router.get('/categoriesWithProduct' , CategoryHandler.getSingleCategoryWithProduct);
 
 //GET//
 

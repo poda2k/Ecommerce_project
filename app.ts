@@ -51,7 +51,7 @@ app.use("/auth", userAuth);
 //Routes//
 
 connection
-  .sync({force:true})
+  .sync()
   .then((result) => {
     console.log("GOOD TO GO");
     app.listen(port);
