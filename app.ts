@@ -9,6 +9,8 @@ import Products from "./Models/Products";
 import Categories from "./Models/Categories";
 import Cart from "./Models/Cart";
 import Prod_Cart from "./Models/Prod_Cart";
+import favorites from "./Models/favorites";
+import Users from "./Models/auth";
 
 //    MODELS IMPORTS  //
 //    ROUTES IMPORTS  //
@@ -35,10 +37,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // RELATIONS //
 
-Categories.hasMany(Products, { foreignKey: "cat_id" });
-Products.belongsTo(Categories, { foreignKey: "cat_id" });
-Cart.belongsToMany(Products, { through: Prod_Cart });
-Products.belongsToMany(Cart, { through: Prod_Cart });
+Categories.hasMany(Products, { foreignKey: "cat_id" });  //one to one
+Products.belongsTo(Categories, { foreignKey: "cat_id" });// one to one
+Cart.belongsToMany(Products, { through: Prod_Cart }); // many to many
+Products.belongsToMany(Cart, { through: Prod_Cart }); // many to many
+Users.hasMany(favorites, { foreignKey: "user_id"}); //one to one
+favorites.belongsTo(Users, { foreignKey: "user_id"}); //one to one
 
 // RELATIONS //
 
