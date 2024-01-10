@@ -4,24 +4,60 @@ import favorites from "../Models/favorites";
 class favoritesClass {
 
     static async postFavorites(req:Request, res:Response): Promise<void> {
-
-        // userId extracted from the token which we still waiting for el bashmohands omar 3shan y7otha ....
-        //const userId = req.userId ;
+        // waiting for JWT ..//
+        // const userId = req.userId ;  user id extracted from the token .
         const prodId = req.params.prodId ;
-        try{
-            const newFavorite = await favorites.create({
-              //  user_id : userId ,
-                product_id : prodId ,
-                is_purchased : false
-            });
 
-            res.json({favorite: newFavorite , message: 'Favorite created successfully'}) ;
+        try{
+           
+            const findProduct = await favorites.findOne({
+                where :{
+                    product_id : prodId ,
+                    // waiting for JWT ..//
+                    // user_id : req.userId
+                }
+            })
+            if(findProduct){
+                res.json({message : " product already in favorites " }) ;
+            }else{
+                const newFavorite = await favorites.create({
+                    // waiting for JWT ..//
+                    // userId : req.userId,
+                    product_id : prodId ,
+                    is_purchased : false
+                });
+
+            
+                res.json({favorite: newFavorite , message: 'Favorite created successfully'}) ;
+            }
+
+           
         }catch(error){
             console.log("error in create favorites" + error) ;
             throw error ;
         }
       
 
+    }
+
+    static async getFavorites(req:Request, res:Response) : Promise<void> {
+
+            //const userId = req.userId ;
+            try{
+                const myFavorites = await favorites.findAll({
+                    where : {
+                        // waiting for JWT ..//
+                        // user_id : req.userId
+                    }
+                })
+                if(myFavorites==null){
+                    res.json({message : "no favorites found"});
+                }
+                res.json({myFavorites : myFavorites , message : "favorite found successfully"}) ;
+            }catch(error){
+                console.log("error in get favorites" + error) ;
+                throw error ;
+            }
     }
 }
 

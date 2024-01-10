@@ -6,7 +6,7 @@ const router = Router();
 
 //GET//
 
-
+router.get('/getFavorites' , favorites.getFavorites);
 
 //GET//
 
