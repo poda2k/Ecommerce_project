@@ -13,10 +13,13 @@ import favorites from "./Models/favorites";
 import Users from "./Models/auth";
 
 //    MODELS IMPORTS  //
+
 //    ROUTES IMPORTS  //
 
 import ProductsRoutes from "./Routes/productsRoutes";
 import userAuth from "./Routes/usersauth";
+import favoritesRoutes from "./Routes/favorites";
+import categoryRoutes from "./Routes/CategoryRoutes";
 
 //    ROUTES IMPORTS  //
 
@@ -53,6 +56,8 @@ favorites.belongsTo(Users, { foreignKey: "user_id"}); //one to many
 // app.use("/api", user);
 app.use("/products", ProductsRoutes);
 app.use("/auth", userAuth);
+app.use("/favorites", favoritesRoutes);
+app.use('/categories',categoryRoutes);
 
 //Routes//
 

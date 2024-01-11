@@ -1,3 +1,4 @@
+import { where } from 'sequelize';
 import Categories from '../Models/Categories' ;
 import Products from '../Models/Products' ;
 import { Request , Response } from "express" ;
@@ -54,6 +55,29 @@ class CategoryHandler{
         }catch(e){
           console.log("error in get product with category") ;
           throw e ;
+        }
+      }
+
+      static async deleteCategory(req: Request, res: Response) : Promise<void> {
+
+        const catId = req.params.catId ;
+        try{
+          const deleteFromCategories = await Categories.destroy({
+            where : { cat_id: catId}
+          });
+          const deleteCatFromProducts = await Products.update({
+            cat_id : null
+          },{
+            where:{
+              cat_id : catId
+            }
+          });
+
+          res.json({ message: "category deleted successfully from products and categories table"}) ;
+
+        }catch(error) {
+          console.log("error in delete category" + error) ;
+          throw error ;
         }
       }
 }

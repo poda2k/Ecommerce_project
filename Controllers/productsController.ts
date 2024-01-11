@@ -40,6 +40,7 @@ class productHandler {
       categoryName,
     } = req.body;
 
+      // checks for category if exists in category table .
     const getCategory = await Categories.findOne({
       where: {
         categoryName: categoryName,

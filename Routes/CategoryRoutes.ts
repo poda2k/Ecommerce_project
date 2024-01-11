@@ -20,5 +20,10 @@ router.post('/createCategory' , CategoryHandler.createCategory) ;
 
 //=========================================================================//
 
+//DELETE//
+
+router.delete('/deleteCategory/:catId' , CategoryHandler.deleteCategory);
+
+//DELETE//
 
 export default router ;

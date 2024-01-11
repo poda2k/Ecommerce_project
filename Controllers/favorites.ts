@@ -59,6 +59,25 @@ class favoritesClass {
                 throw error ;
             }
     }
+
+    static async deleteFavorites( req:Request , res:Response) : Promise<void>{
+
+        const prodId = req.params.prodId ;
+
+        try {
+            const deleteFavorites = await favorites.destroy({
+                where : {
+                    product_id : prodId
+                }
+            }) ;
+
+            res.json({message : "favorite deleted successfully"});
+
+        }catch(error){
+            console.log("error in delete favorites" + error) ;
+            throw error ;
+        }
+    }
 }
 
 export default favoritesClass ;
