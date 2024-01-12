@@ -18,8 +18,9 @@ import Users from "./Models/auth";
 
 import ProductsRoutes from "./Routes/productsRoutes";
 import userAuth from "./Routes/usersauth";
-import favoritesRoutes from "./Routes/favorites";
-import categoryRoutes from "./Routes/CategoryRoutes";
+import favoritesRoutes from "./Routes/favoritesRoutes";
+import categoryRoutes from "./Routes/categoryRoutes";
+import cartRoutes from './Routes/cartRoutes';
 
 //    ROUTES IMPORTS  //
 
@@ -58,6 +59,7 @@ app.use("/products", ProductsRoutes);
 app.use("/auth", userAuth);
 app.use("/favorites", favoritesRoutes);
 app.use('/categories',categoryRoutes);
+app.use('/cart',cartRoutes);
 
 //Routes//
 

@@ -12,6 +12,10 @@ class Cart {
         const userId = 0 ; // get the user ID from the token .
 
         try{
+            //getting the product info .
+            const productsInfo = await products.findOne({
+                where : { prod_Id : prod_Id}
+            })
             // Checking if user have cart or not ..
             const checkIfUserHasCart = await cartModel.findOne({
                 where:{
@@ -28,7 +32,7 @@ class Cart {
                 });
                 // if product already exists in cart respond with this .. //
                 if(checkIfProdInCart!=null){
-                    
+
                     res.json({message: "Product already exists in cart"});
 
                 }else if(checkIfProdInCart == null){
@@ -36,7 +40,8 @@ class Cart {
                     const createAssociation = await Prod_Cart.create({
                         Cartid : checkIfUserHasCart.id,
                         Productid : prod_Id ,
-                        quantity : 1 // Quantity I think needs update .
+                        quantity : productsInfo?.quantity ,
+                        totalPrice : productsInfo?.price
                     });
                     res.json({message: "Product added to cart successfully" , cart : createAssociation});
                 }
@@ -45,13 +50,14 @@ class Cart {
 
                 const createCartRecord = await cartModel.create({
                     user_id: userId ,
-                    Is_purchased : false  // update here ==> this attribute must be in association table....//
+                    Is_purchased : false  // update here ==> this attribute must be in association table....??//
                 });
 
                 const createAssociation = await Prod_Cart.create({
                     Cartid : createCartRecord.id,
                     Productid : prod_Id ,
-                    quantity : 1 // Quantity I think needs update .
+                    quantity : productsInfo?.quantity ,
+                    totalPrice : productsInfo?.price
                 });
 
                 res.json({message : "new cart added and product added successfully" , cart : createAssociation});
@@ -64,5 +70,27 @@ class Cart {
         }
     }
 
+    static async getCart(req: Request, res: Response) : Promise<void> {
+
+        const userId = 0 ; // get userId from the token .
+
+        try{
+            const cart = await cartModel.findOne({
+                where:{
+                    user_id: userId,
+                    Is_purchased: false
+                },include:[
+                    products
+                ]
+            });
+            res.json({message: "Cart found successfully" , cart : cart});
+        }catch(error){
+            console.log("Failed to get cart"+error);
+            throw error;    
+        }
+    }
+
 
 }
+
+export default Cart ;
