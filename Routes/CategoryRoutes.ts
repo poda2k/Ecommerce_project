@@ -27,6 +27,6 @@ router.post("/createCategory", CategoryHandler.createCategory);
 export default router;
 //DELETE//
 
-router.delete("/deleteCategory/:catId", CategoryHandler.deleteCategory);
+// router.delete("/deleteCategory/:catId", CategoryHandler.deleteCategory);
 
 //DELETE//

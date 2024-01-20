@@ -26,7 +26,7 @@ const handleUnauthorizedError = (next: NextFunction) => {
 };
 
 const validateTokenMiddleware = (
-  req: Request,
+  req: any,
   _res: Response,
   next: NextFunction
 ) => {
@@ -36,17 +36,13 @@ const validateTokenMiddleware = (
       const bearer = authHeader.split(" ")[0].toLowerCase();
       const token = authHeader.split(" ")[1];
       if (token && bearer === "bearer") {
-        console.log(token);
-
         const decode: any = jwt.verify(
           token,
           "mysecrettoken" as unknown as string
         );
 
-        const { user_name, email } = decode;
-        console.log(`name`, decode);
-
         if (decode) {
+          req["user"] = decode.id;
           next();
         } else {
           // Failed to authenticate user.

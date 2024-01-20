@@ -21,12 +21,11 @@ import userAuth from "./Routes/usersauth";
 import favoritesRoutes from "./Routes/favoritesRoutes";
 import categoryRoutes from "./Routes/categoryRoutes";
 import cartRoutes from "./Routes/cartRoutes";
-import categoriesRoute from "./Routes/CategoryRoutes";
+import categoriesRoute from "./Routes/categoryRoutes";
 //    ROUTES IMPORTS  //
 
 // import cors from "cors";
 import bodyParser from "body-parser";
-import Users from "./Models/auth";
 
 // dotenv.config();
 const app = express();
