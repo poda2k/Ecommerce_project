@@ -41,6 +41,7 @@ class productHandler {
       admin_id,
     } = req.body;
 
+      // checks for category if exists in category table .
     const getCategory = await Categories.findOne({
       where: {
         categoryName: categoryName,

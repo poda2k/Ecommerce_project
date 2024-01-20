@@ -9,12 +9,18 @@ import Products from "./Models/Products";
 import Categories from "./Models/Categories";
 import Cart from "./Models/Cart";
 import Prod_Cart from "./Models/Prod_Cart";
+import favorites from "./Models/favorites";
+import Users from "./Models/auth";
 
 //    MODELS IMPORTS  //
+
 //    ROUTES IMPORTS  //
 
 import productsRoutes from "./Routes/productsRoutes";
 import userAuth from "./Routes/usersauth";
+import favoritesRoutes from "./Routes/favoritesRoutes";
+import categoryRoutes from "./Routes/categoryRoutes";
+import cartRoutes from "./Routes/cartRoutes";
 import categoriesRoute from "./Routes/CategoryRoutes";
 //    ROUTES IMPORTS  //
 
@@ -36,14 +42,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // RELATIONS //
 
-Categories.hasMany(Products, { foreignKey: "cat_id" });
-Products.belongsTo(Categories, { foreignKey: "cat_id" });
-Cart.belongsToMany(Products, { through: Prod_Cart });
+Categories.hasMany(Products, { foreignKey: "cat_id" }); //one to many
+Products.belongsTo(Categories, { foreignKey: "cat_id" }); //one to many
+
+Cart.belongsToMany(Products, { through: Prod_Cart }); // many to many
 
 Users.hasMany(Cart, { foreignKey: "user_id" });
 Cart.belongsTo(Users, { foreignKey: "user_id" });
 
-Products.belongsToMany(Cart, { through: Prod_Cart });
+Products.belongsToMany(Cart, { through: Prod_Cart }); // many to many
+
+Users.hasMany(favorites, { foreignKey: "user_id" }); //one to many
+favorites.belongsTo(Users, { foreignKey: "user_id" }); //one to many
 
 // RELATIONS //
 
@@ -53,6 +63,9 @@ Products.belongsToMany(Cart, { through: Prod_Cart });
 app.use("/products", productsRoutes);
 app.use("/categories", categoriesRoute);
 app.use("/auth", userAuth);
+app.use("/favorites", favoritesRoutes);
+app.use("/categories", categoryRoutes);
+app.use("/cart", cartRoutes);
 
 //Routes//
 

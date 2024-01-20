@@ -1,3 +1,4 @@
+import { where } from "sequelize";
 import Categories from "../Models/Categories";
 import Products from "../Models/Products";
 import { Request, Response } from "express";
