@@ -1,14 +1,18 @@
 import { Router } from "express";
 import productHandler from "../Controllers/productsController";
-
+import validateTokenMiddleware from "../middleware/authentication";
 const router = Router();
 
 //=========================================================================================//
 
 //GET//
 
-router.get('/allProducts' , productHandler.getAllProducts) ;
-router.get('/singleProduct/:id', productHandler.getSingleProduct) ;
+router.get(
+  "/allProducts",
+  validateTokenMiddleware,
+  productHandler.getAllProducts
+);
+router.get("/singleProduct/:id", productHandler.getSingleProduct);
 
 //GET//
 
@@ -16,7 +20,7 @@ router.get('/singleProduct/:id', productHandler.getSingleProduct) ;
 
 //POST//
 
-router.post('/createProducts', productHandler.createProduct) ;
+router.post("/createProducts", productHandler.createProduct);
 
 //POST//
 
@@ -24,7 +28,7 @@ router.post('/createProducts', productHandler.createProduct) ;
 
 //PUT//
 
-router.put('/updateProducts/:id', productHandler.updateProduct);
+router.put("/updateProducts/:id", productHandler.updateProduct);
 
 //PUT//
 
@@ -32,10 +36,8 @@ router.put('/updateProducts/:id', productHandler.updateProduct);
 
 //DELETE//
 
-router.delete('/deleteProduct/:id', productHandler.deleteProduct);
+router.delete("/deleteProduct/:id", productHandler.deleteProduct);
 
 //DELETE//
 
-
-
-export default router ;
+export default router;

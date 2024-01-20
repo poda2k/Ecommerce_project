@@ -1,6 +1,7 @@
 import Users from "../Models/auth";
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export const Login = async (req: Request, res: Response) => {
   try {
@@ -14,9 +15,21 @@ export const Login = async (req: Request, res: Response) => {
     if (!checkPass) {
       res.status(400).json({ msg: "password is wrong" });
     }
+
+    const token = jwt.sign(
+      {
+        id: user._id,
+        user_name: user.user_name,
+        email: user.email,
+      },
+      "mysecrettoken",
+      { expiresIn: "1h" }
+    );
     const { password, isAdmin, ...otherdetails } = user.dataValues;
-    res.status(200).json({ user: otherdetails });
+    res.status(200).json({ user: otherdetails, token: token });
   } catch (error) {
+    console.log(error);
+
     res.status(500).json(error);
   }
 };

@@ -38,6 +38,7 @@ class productHandler {
       quantity,
       color,
       categoryName,
+      admin_id,
     } = req.body;
 
     const getCategory = await Categories.findOne({
@@ -45,10 +46,14 @@ class productHandler {
         categoryName: categoryName,
       },
     });
+    console.log(categoryName);
+
     if (getCategory == null) {
       res.json({ massage: "no categories found" });
     } else {
       try {
+        console.log("created");
+
         const newProduct = await Products.create({
           cat_id: getCategory.id,
           name: prodName,
@@ -56,6 +61,7 @@ class productHandler {
           price: price,
           quantity: quantity,
           imageUrl: imageUrl,
+          admin_id: admin_id,
           color: color,
         });
 
@@ -69,7 +75,6 @@ class productHandler {
       }
     }
   }
-
 
   static async updateProduct(req: Request, res: Response): Promise<void> {
     const prodId = req.params.id;

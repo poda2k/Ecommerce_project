@@ -1,0 +1,68 @@
+import { NextFunction, Request, Response } from "express";
+import jwt from "jsonwebtoken";
+interface Error {
+  status?: number;
+  name?: string;
+  message?: string;
+  stack?: string;
+}
+
+const errorMiddleware = (
+  error: Error,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const status = error.status || 500;
+  const message = error.message || "Whoops!! something went wrong";
+  res.status(status).json({ status, message });
+};
+
+const handleUnauthorizedError = (next: NextFunction) => {
+  const error: Error = new Error("Login Error, Please login again");
+
+  error.status = 401;
+  next(error);
+};
+
+const validateTokenMiddleware = (
+  req: Request,
+  _res: Response,
+  next: NextFunction
+) => {
+  try {
+    const authHeader = req.get("Authorization");
+    if (authHeader) {
+      const bearer = authHeader.split(" ")[0].toLowerCase();
+      const token = authHeader.split(" ")[1];
+      if (token && bearer === "bearer") {
+        console.log(token);
+
+        const decode: any = jwt.verify(
+          token,
+          "mysecrettoken" as unknown as string
+        );
+
+        const { user_name, email } = decode;
+        console.log(`name`, decode);
+
+        if (decode) {
+          next();
+        } else {
+          // Failed to authenticate user.
+          handleUnauthorizedError(next);
+        }
+      } else {
+        // token type not bearer
+        handleUnauthorizedError(next);
+      }
+    } else {
+      // No Token Provided.
+      handleUnauthorizedError(next);
+    }
+  } catch (err) {
+    handleUnauthorizedError(next);
+  }
+};
+
+export default validateTokenMiddleware;

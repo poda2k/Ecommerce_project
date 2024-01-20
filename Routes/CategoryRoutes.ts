@@ -5,8 +5,12 @@ const router = Router();
 
 //GET//
 
-router.get('/getAllCategories' , CategoryHandler.GetCategories);
-router.get('/categoriesWithProduct' , CategoryHandler.getSingleCategoryWithProduct);
+router.get("/getAllCategories", CategoryHandler.GetCategories);
+
+router.get(
+  "/categoriesWithProduct",
+  CategoryHandler.getSingleCategoryWithProduct
+);
 
 //GET//
 
@@ -14,11 +18,10 @@ router.get('/categoriesWithProduct' , CategoryHandler.getSingleCategoryWithProdu
 
 //POST//
 
-router.post('/createCategory' , CategoryHandler.createCategory) ;
+router.post("/createCategory", CategoryHandler.createCategory);
 
 //POST//
 
 //=========================================================================//
 
-
-export default router ;
+export default router;
