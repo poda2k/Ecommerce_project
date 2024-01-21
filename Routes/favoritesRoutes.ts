@@ -1,12 +1,12 @@
 import { Router } from "express";
-import favorites from "../Controllers/favoritesController";
+import {getFavorites,postFavorites,deleteFavorites} from "../Controllers/favoritesController";
 
 const router = Router();
 
 
 //GET//
 
-router.get('/getFavorites' , favorites.getFavorites);
+router.get('/getFavorites' , getFavorites);
 
 //GET//
 
@@ -14,7 +14,7 @@ router.get('/getFavorites' , favorites.getFavorites);
 
 //POST//
 
-router.post('/addFavorites/:prodId' , favorites.postFavorites ) ;
+router.post('/addFavorites/:prodId' , postFavorites ) ;
 
 //POST//
 
@@ -22,7 +22,7 @@ router.post('/addFavorites/:prodId' , favorites.postFavorites ) ;
 
 //DELETE//
 
-router.delete('/deleteFavorites/:prodId' , favorites.deleteFavorites);
+router.delete('/deleteFavorites/:prodId' , deleteFavorites);
 
 //DELETE//
 

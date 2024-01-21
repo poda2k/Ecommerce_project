@@ -1,15 +1,15 @@
 import { Router } from "express";
-import CategoryHandler from "../Controllers/CategoryController";
+import {getCategories,getSingleCategoryWithProduct,createCategory} from "../Controllers/CategoryController";
 
 const router = Router();
 
 //GET//
 
-router.get("/getAllCategories", CategoryHandler.GetCategories);
+router.get("/getAllCategories", getCategories);
 
 router.get(
   "/categoriesWithProduct",
-  CategoryHandler.getSingleCategoryWithProduct
+  getSingleCategoryWithProduct
 );
 
 //GET//
@@ -18,7 +18,7 @@ router.get(
 
 //POST//
 
-router.post("/createCategory", CategoryHandler.createCategory);
+router.post("/createCategory", createCategory);
 
 //POST//
 

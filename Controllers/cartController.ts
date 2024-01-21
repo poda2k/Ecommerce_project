@@ -3,10 +3,10 @@ import cartModel from "../Models/Cart";
 import products from "../Models/Products";
 import Prod_Cart from "../Models/Prod_Cart";
 
-class Cart {
+
   // Waiting for Eng. Omar to complete the JWT .
-  static async createCart(req: Request, res: Response): Promise<void> {
-    const prod_Id = req.params.prod_Id;
+ export const createCart = async(req:Request , res:Response) => {
+  const prod_Id = req.params.prod_Id;
     console.log(prod_Id);
     const userId = 1; // get the user ID from the token .
 
@@ -70,26 +70,27 @@ class Cart {
       console.log("Failed to create cart" + err);
       throw err;
     }
-  }
+ }
 
-  static async update(req: Request, res: Response): Promise<void> {
-    try {
-      const updatedCart = await Prod_Cart.update(
-        {
-          quantity: req.body.quantity,
-        },
-        {
-          where: { CartId: req.query.cartId, ProductId: req.query.prodId },
-        }
-      );
+export const updateCart = async(req : Request, res : Response) => {
+  try {
+    const updatedCart = await Prod_Cart.update(
+      {
+        quantity: req.body.quantity,
+      },
+      {
+        where: { CartId: req.query.cartId, ProductId: req.query.prodId },
+      }
+    );
 
-      res.status(200).json({ message: "the quantity has been updated" });
-      console.log(updatedCart);
-    } catch (error) {
-      res.status(500).json(error);
-    }
+    res.status(200).json({ message: "the quantity has been updated" });
+    console.log(updatedCart);
+  } catch (error) {
+    res.status(500).json(error);
   }
-  static async getCart(req: any, res: Response): Promise<void> {
+ }
+ 
+export const getCart = async(req: any, res: Response)=>{
     // get userId from the token .
     console.log(req["user"]);
 
@@ -107,6 +108,6 @@ class Cart {
       throw error;
     }
   }
-}
+ 
+  
 
-export default Cart;

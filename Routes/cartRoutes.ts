@@ -1,12 +1,12 @@
 import { Router } from "express";
-import cartController from "../Controllers/cartController";
+import {getCart,createCart,updateCart} from "../Controllers/cartController";
 import validateTokenMiddleware from "../middleware/authentication";
 
 const router = Router();
 
 //GET//
 
-router.get("/getCart/:id", validateTokenMiddleware, cartController.getCart);
+router.get("/getCart/:id", validateTokenMiddleware, getCart);
 
 //GET//
 
@@ -14,10 +14,18 @@ router.get("/getCart/:id", validateTokenMiddleware, cartController.getCart);
 
 //POST//
 
-router.post("/postCart/:prod_Id", cartController.createCart);
-
-router.put("/postCart/", cartController.update);
+router.post("/postCart/:prod_Id", createCart);
 
 //POST//
+
+//=========================================================================//
+
+//UPDATE//
+
+router.put("/postCart/", updateCart);
+
+//UPDATE//
+
+
 
 export default router;

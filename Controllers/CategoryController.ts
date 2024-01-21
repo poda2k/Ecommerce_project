@@ -3,8 +3,8 @@ import Categories from "../Models/Categories";
 import Products from "../Models/Products";
 import { Request, Response } from "express";
 
-class CategoryHandler {
-  static async createCategory(req: Request, res: Response): Promise<void> {
+
+  export const createCategory = async(req:Request, res:Response) => {
     const categoryName = req.body.categoryName;
     try {
       const newCategory = await Categories.create({
@@ -17,27 +17,24 @@ class CategoryHandler {
       throw e;
     }
   }
+  
+export const  getCategories = async(req : Request, res : Response) => {
+  try {
+    const allCategories = await Categories.findAll();
 
-  static async GetCategories(req: Request, res: Response): Promise<void> {
-    try {
-      const allCategories = await Categories.findAll();
-
-      if (allCategories.length > 0) {
-        res.json({ message: "categories", categories: allCategories });
-      }
-
-      res.json({ message: "no categories found" });
-    } catch (e) {
-      console.log("error getting categories");
-      throw e;
+    if (allCategories.length > 0) {
+      res.json({ message: "categories", categories: allCategories });
     }
-  }
 
-  static async getSingleCategoryWithProduct(
-    req: Request,
-    res: Response
-  ): Promise<void> {
-    const catId = req.params.catId;
+    res.json({ message: "no categories found" });
+  } catch (e) {
+    console.log("error getting categories");
+    throw e;
+  }
+}
+
+export const getSingleCategoryWithProduct = async(req : Request, res : Response) => {
+  const catId = req.params.catId;
     try {
       const productWithCategory = await Products.findAll({
         where: {
@@ -56,6 +53,7 @@ class CategoryHandler {
       throw e;
     }
   }
-}
 
-export default CategoryHandler;
+  
+
+

@@ -1,11 +1,7 @@
 import { NextFunction, Request, Response } from "express";
+import Error from '../interfaces/errorInterface';
 import jwt from "jsonwebtoken";
-interface Error {
-  status?: number;
-  name?: string;
-  message?: string;
-  stack?: string;
-}
+
 
 const errorMiddleware = (
   error: Error,

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import productHandler from "../Controllers/productsController";
+import {getAllProducts,getSingleProduct,createProduct,updateProduct,deleteProduct} from "../Controllers/productsController";
 import validateTokenMiddleware from "../middleware/authentication";
 const router = Router();
 
@@ -10,9 +10,9 @@ const router = Router();
 router.get(
   "/allProducts",
   validateTokenMiddleware,
-  productHandler.getAllProducts
+  getAllProducts
 );
-router.get("/singleProduct/:id", productHandler.getSingleProduct);
+router.get("/singleProduct/:id", getSingleProduct);
 
 //GET//
 
@@ -20,7 +20,7 @@ router.get("/singleProduct/:id", productHandler.getSingleProduct);
 
 //POST//
 
-router.post("/createProducts", productHandler.createProduct);
+router.post("/createProducts", createProduct);
 
 //POST//
 
@@ -28,7 +28,7 @@ router.post("/createProducts", productHandler.createProduct);
 
 //PUT//
 
-router.put("/updateProducts/:id", productHandler.updateProduct);
+router.put("/updateProducts/:id", updateProduct);
 
 //PUT//
 
@@ -36,7 +36,7 @@ router.put("/updateProducts/:id", productHandler.updateProduct);
 
 //DELETE//
 
-router.delete("/deleteProduct/:id", productHandler.deleteProduct);
+router.delete("/deleteProduct/:id",deleteProduct);
 
 //DELETE//
 
