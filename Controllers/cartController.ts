@@ -5,10 +5,10 @@ import Prod_Cart from "../Models/Prod_Cart";
 
 
   // Waiting for Eng. Omar to complete the JWT .
- export const createCart = async(req:Request , res:Response) => {
+ export const createCart = async(req:any , res:Response) => {
   const prod_Id = req.params.prod_Id;
     console.log(prod_Id);
-    const userId = 1; // get the user ID from the token .
+    const userId = req['userId']; // get the user ID from the token .
 
     try {
       //getting the product info .
@@ -92,12 +92,13 @@ export const updateCart = async(req : Request, res : Response) => {
  
 export const getCart = async(req: any, res: Response)=>{
     // get userId from the token .
-    console.log(req["user"]);
+    const userId = req['userId'];
+    console.log(req["userId"]);
 
     try {
       const cart = await cartModel.findAll({
         where: {
-          user_id: req["user"],
+          user_id: userId,
           Is_purchased: false,
         },
         include: [products],
@@ -108,6 +109,6 @@ export const getCart = async(req: any, res: Response)=>{
       throw error;
     }
   }
- 
-  
+
+
 

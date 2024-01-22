@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import Error from '../interfaces/errorInterface';
+import {Error} from '../interfaces/errorInterface';
 import jwt from "jsonwebtoken";
 
 
@@ -38,7 +38,7 @@ const validateTokenMiddleware = (
         );
 
         if (decode) {
-          req["user"] = decode.id;
+          req["userId"] = decode.id;
           next();
         } else {
           // Failed to authenticate user.

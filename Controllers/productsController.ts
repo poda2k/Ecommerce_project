@@ -28,7 +28,7 @@ export const getSingleProduct = async (req: Request, res: Response): Promise<voi
   }
 };
 
-export const createProduct = async (req: Request, res: Response): Promise<void> => {
+export const createProduct = async (req: any, res: Response): Promise<void> => {
   const {
     prodName,
     description,
@@ -36,9 +36,9 @@ export const createProduct = async (req: Request, res: Response): Promise<void> 
     price,
     quantity,
     color,
-    categoryName,
-    admin_id,
+    categoryName
   } = req.body;
+  const admin_id = req['userId'] ;
 
   // checks for category if exists in category table.
   const getCategory = await Categories.findOne({

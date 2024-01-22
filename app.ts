@@ -26,6 +26,7 @@ import categoriesRoute from "./Routes/categoryRoutes";
 
 // import cors from "cors";
 import bodyParser from "body-parser";
+import { db_connection } from "./secrets";
 
 // dotenv.config();
 const app = express();
@@ -71,8 +72,9 @@ app.use("/cart", cartRoutes);
 connection
   .sync()
   .then((result) => {
+    app.listen(db_connection.APP_PORT);
     console.log("GOOD TO GO");
-    app.listen(port);
+
   })
   .catch((err) => {
     console.log("===============");

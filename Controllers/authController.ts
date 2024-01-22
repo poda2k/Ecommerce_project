@@ -21,9 +21,10 @@ export const Login = async (req: Request, res: Response) => {
         id: user.id,
         user_name: user.user_name,
         email: user.email,
+        isAdmin : user.is_admin
       },
       "mysecrettoken",
-      { expiresIn: "1h" }
+      { expiresIn: "1d" }
     );
     const { password, isAdmin, ...otherdetails } = user.dataValues;
     res.status(200).json({ user: otherdetails, token: token });

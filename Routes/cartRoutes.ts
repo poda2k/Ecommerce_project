@@ -1,12 +1,13 @@
 import { Router } from "express";
 import {getCart,createCart,updateCart} from "../Controllers/cartController";
 import validateTokenMiddleware from "../middleware/authentication";
+import {checkIfAdmin} from "../middleware/checkIfAdmin";
 
 const router = Router();
 
 //GET//
 
-router.get("/getCart/:id", validateTokenMiddleware, getCart);
+router.get("/getCart/:id", validateTokenMiddleware,checkIfAdmin, getCart);
 
 //GET//
 

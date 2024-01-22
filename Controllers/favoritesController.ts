@@ -3,9 +3,9 @@ import favorites from "../Models/favorites";
 
 
 
-export const postFavorites = async (req: Request, res: Response) => {
+export const postFavorites = async (req: any, res: Response) => {
     // waiting for JWT ..//
-    // const userId = req.userId ;  user id extracted from the token .
+    const userId = req['userId'] ;  
     const prodId = req.params.prodId;
 
     try {
@@ -13,8 +13,7 @@ export const postFavorites = async (req: Request, res: Response) => {
         const findProduct = await favorites.findOne({
             where: {
                 product_id: prodId,
-                // waiting for JWT ..//
-                // user_id : req.userId
+                user_id : userId
             }
         })
         if (findProduct) {
@@ -22,7 +21,7 @@ export const postFavorites = async (req: Request, res: Response) => {
         } else {
             const newFavorite = await favorites.create({
                 // waiting for JWT ..//
-                // userId : req.userId,
+                userId : userId,
                 product_id: prodId,
                 is_purchased: false
             });
@@ -40,14 +39,13 @@ export const postFavorites = async (req: Request, res: Response) => {
 
 }
 
-export const getFavorites = async (req: Request, res: Response) => {
+export const getFavorites = async (req: any, res: Response) => {
 
-    //const userId = req.userId ;
+    const userId = req['userId'] ;
     try {
         const myFavorites = await favorites.findAll({
             where: {
-                // waiting for JWT ..//
-                // user_id : req.userId
+                user_id : userId
             }
         })
         if (myFavorites == null) {
