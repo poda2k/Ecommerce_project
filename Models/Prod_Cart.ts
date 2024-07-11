@@ -7,6 +7,7 @@ class Prod_Cart extends Model {
   public prod_Id!: number;
   public totalprice!: number;
   public quantity!: number;
+  public isPurchased!: boolean;
 }
 
 Prod_Cart.init(
@@ -25,6 +26,10 @@ Prod_Cart.init(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    isPurchased:{
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    }
   },
   {
     sequelize,

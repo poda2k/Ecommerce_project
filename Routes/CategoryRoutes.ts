@@ -1,5 +1,7 @@
 import { Router } from "express";
 import {getCategories,getSingleCategoryWithProduct,createCategory} from "../Controllers/CategoryController";
+import { checkIfAdmin } from "../middleware/checkIfAdmin";
+import authentication from "../middleware/authentication";
 
 const router = Router();
 
@@ -18,7 +20,7 @@ router.get(
 
 //POST//
 
-router.post("/createCategory", createCategory);
+router.post("/createCategory",authentication, checkIfAdmin ,createCategory);
 
 //POST//
 

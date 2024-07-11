@@ -7,7 +7,7 @@ const router = Router();
 
 //GET//
 
-router.get("/getCart/:id", validateTokenMiddleware,checkIfAdmin, getCart);
+router.get("/getCart/:id", validateTokenMiddleware, getCart);
 
 //GET//
 
@@ -15,7 +15,7 @@ router.get("/getCart/:id", validateTokenMiddleware,checkIfAdmin, getCart);
 
 //POST//
 
-router.post("/postCart/:prod_Id", createCart);
+router.post("/postCart/:prod_Id",validateTokenMiddleware, createCart);
 
 //POST//
 
@@ -23,7 +23,7 @@ router.post("/postCart/:prod_Id", createCart);
 
 //UPDATE//
 
-router.put("/postCart/", updateCart);
+router.put("/postCart/",validateTokenMiddleware,updateCart);
 
 //UPDATE//
 

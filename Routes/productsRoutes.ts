@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {getAllProducts,getSingleProduct,createProduct,updateProduct,deleteProduct} from "../Controllers/productsController";
 import validateTokenMiddleware from "../middleware/authentication";
+import { checkIfAdmin } from "../middleware/checkIfAdmin";
 const router = Router();
 
 //=========================================================================================//
@@ -9,7 +10,6 @@ const router = Router();
 
 router.get(
   "/allProducts",
-  validateTokenMiddleware,
   getAllProducts
 );
 router.get("/singleProduct/:id", getSingleProduct);
@@ -20,7 +20,7 @@ router.get("/singleProduct/:id", getSingleProduct);
 
 //POST//
 
-router.post("/createProducts", createProduct);
+router.post("/createProducts",validateTokenMiddleware, checkIfAdmin, createProduct);
 
 //POST//
 
@@ -28,7 +28,7 @@ router.post("/createProducts", createProduct);
 
 //PUT//
 
-router.put("/updateProducts/:id", updateProduct);
+router.put("/updateProducts/:id",validateTokenMiddleware, checkIfAdmin, updateProduct);
 
 //PUT//
 
@@ -36,7 +36,7 @@ router.put("/updateProducts/:id", updateProduct);
 
 //DELETE//
 
-router.delete("/deleteProduct/:id",deleteProduct);
+router.delete("/deleteProduct/:id",validateTokenMiddleware, checkIfAdmin,deleteProduct);
 
 //DELETE//
 

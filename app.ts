@@ -11,6 +11,9 @@ import Cart from "./Models/Cart";
 import Prod_Cart from "./Models/Prod_Cart";
 import favorites from "./Models/favorites";
 import Users from "./Models/auth";
+import payments from "./Models/Payment";
+import Order from "./Models/orders";
+import prod_Order from "./Models/prod_Order";
 
 //    MODELS IMPORTS  //
 
@@ -54,6 +57,17 @@ Products.belongsToMany(Cart, { through: Prod_Cart }); // many to many
 
 Users.hasMany(favorites, { foreignKey: "user_id" }); //one to many
 favorites.belongsTo(Users, { foreignKey: "user_id" }); //one to many
+
+payments.belongsTo(Users, { foreignKey: "customerId" });//one to many
+Users.hasMany(payments, { foreignKey: "customerId"});//one to many
+
+Users.hasMany(Order, { foreignKey: "customerId"});//one to many
+Order.belongsTo(Users, { foreignKey: "customerId"});//one to many
+
+Order.belongsToMany(Products, { through : prod_Order });//many to many
+
+Order.belongsTo(payments,{foreignKey: "paymentId"});//one to many
+payments.hasMany(Order, { foreignKey: "paymentId"});//one to many
 
 // RELATIONS //
 
